@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
+
 
 /**
  * @author Alex Latunski
@@ -109,16 +109,15 @@ public class Knight implements Piece{
 	@Override
 	public boolean moveTst(int posCol, int posRow, Side[][] mine) {
 		if (attack( mine[posCol][posRow])) {
-			if ((row - posRow) == 2 || (row - posRow) == -2) {
-				if ((column - posCol) == 1 || (column - posCol) == -1) {
-								
-					return true;
-				}
-			} else if ((row - posRow) == 1 || (row - posRow) == -1) {
-				if ((column - posCol) == 2 || (column - posCol) == -2) {
+			if (((row - posRow) == 2 || (row - posRow) == -2)
+					&& ((column - posCol) == 1 || (column - posCol)
+						== -1)){		
+					return true; 
 				
+			} else if (((row - posRow) == 1 || (row - posRow) == -1)
+					&& ((column - posCol) == 2 || (column - posCol)
+						== -2)) {
 					return true;
-				}
 			}
 		}
 		return false;

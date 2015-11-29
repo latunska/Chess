@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
+
 
 /**
  * @author Alex Latunski
@@ -55,28 +55,7 @@ public class Pawn implements Piece{
 	}
 
 	public boolean move(int posCol, int posRow,  Side[][] mine) {
-		// checks piece is in starting space, checks the side,
-		//makes sure the space moving into is empty
-		if (row == 1 && side==Side.Black && posRow == 3 && mine[posCol][posRow] ==Side.Empty) {
-			row=posRow;
-			return true;
-		}
-		else if (row == 6 && side==Side.White && posRow == 4 && mine[posCol][posRow] ==Side.Empty) {
-			row=posRow;
-			return true;
-		}
-		else if (column==posCol &&mine[posCol][posRow]==Side.Empty && ((posRow-row==1)||
-					(posRow-row==-1))){
-			row=posRow;
-			column=posCol;
-			return true;
-		}
-		// checks to ensure you move left/right then checks if it is 
-		// only 1 space, finally checks if it is a valid attack 
-		else if (column != posCol && (((posCol-column)==1) ||
-					((posCol-column)==-1)) && (((posRow-row)==1)||
-						((posRow-row)==-1)) && attack(mine[posCol][posRow]))
-							{
+		if(moveTst(posCol,posRow,mine)){
 			row=posRow;
 			column=posCol;
 			return true;
@@ -126,26 +105,26 @@ public class Pawn implements Piece{
 
 	@Override
 	public boolean moveTst(int posCol, int posRow, Side[][] mine) {
-		if (row == 1 && side==Side.Black && posRow == 3 && mine[posCol][posRow] ==Side.Empty) {
+		// checks piece is in starting space, checks the side,
+		//makes sure the space moving into is empty
+		if (row == 1 && side==Side.Black && posRow == 3 && mine[posCol][posRow] ==Side.Empty && posCol==column) {
 			
 			return true;
 		}
-		else if (row == 6 && side==Side.White && posRow == 4 && mine[posCol][posRow] ==Side.Empty) {
-			row=posRow;
+		else if (row == 6 && side==Side.White && posRow == 4 && mine[posCol][posRow] ==Side.Empty && posCol == column) {
+			
 			return true;
 		}
-		else if (column==posCol &&mine[posCol][posRow]==Side.Empty && ((posRow-row==1)||
-					(posRow-row==-1))){
-	
+		else if (column==posCol &&mine[posCol][posRow]==Side.Empty && (((posRow-row==1)&& side==Side.Black)||
+					((posRow-row==-1)&& side==Side.White))){
 			return true;
 		}
 		// checks to ensure you move left/right then checks if it is 
 		// only 1 space, finally checks if it is a valid attack 
 		else if (column != posCol && (((posCol-column)==1) ||
-					((posCol-column)==-1)) && (((posRow-row)==1)||
-						((posRow-row)==-1)) && attack(mine[posCol][posRow]))
+					((posCol-column)==-1)) && (((posRow-row)==1 && side==Side.Black)||
+						((posRow-row)==-1 && side==Side.White)) && attack(mine[posCol][posRow]))
 							{
-			
 			return true;
 		}
 		return false;

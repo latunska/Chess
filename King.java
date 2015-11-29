@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
+
 
 /**
  * @author Alex Latunski
@@ -18,6 +18,7 @@ public class King implements Piece{
 	private int row;
 	private int column;
 	private int value;
+	private boolean moved;
 	private BufferedImage img;
 	
 	/*
@@ -29,6 +30,7 @@ public class King implements Piece{
 		this.row = row;
 		this.column = col;
 		this.value = 10;
+		this.moved = false;
 		img = null;
 		if (side == Side.White) {
 			try {
@@ -55,10 +57,11 @@ public class King implements Piece{
 
 	public boolean move(int posCol, int posRow,  Side[][] mine) {
 		if (moveTst(posCol,posRow,mine)){
-			
+				moved=true;
 				row = posRow;
 				column = posCol;
 				return true;
+				
 		}
 		
 		return false;
@@ -107,11 +110,13 @@ public class King implements Piece{
 	@Override
 	public boolean moveTst(int posCol, int posRow, Side[][] mine) {
 		// 		if (attack( mine[posCol][posRow])){
-		if((posRow - row)<= 1 && (posRow - row)>= -1 && (column-posCol) <= 1 && (column-posCol) >= -1 ) {
+		if((posRow - row)<= 1 && (posRow - row)>= -1 && (column-posCol) <= 1 && (column-posCol) >= -1 && attack(mine[posCol][posRow])) {
 
 			return true;
 		}
-	
+		else if (!moved && posRow==row && ((posCol-column)==2 ||(posCol-column)==-3)&& attack(mine[posCol][posRow])&& attack(mine[posCol-1][posRow])){
+			return true;
+		}
 		return false;
 	}
 }

@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 
 /**
  * @author Alex Latunski
@@ -57,8 +56,6 @@ public class Queen implements Piece{
 
 	
 	public boolean move(int posCol, int posRow, Side[][] mine) {
-		int r = 0;
-		int c = 0;
 		if (moveTst(posCol,posRow,mine)){
 				row = posRow;
 				column = posCol;

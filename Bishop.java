@@ -1,12 +1,11 @@
 
 package ChessGame;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+//import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -23,7 +22,7 @@ public class Bishop implements Piece {
 	private BufferedImage img;
 
 	/**
-	 * @return the img
+	 * @return the image
 	 */
 	public BufferedImage getImg() {
 		return img;
@@ -64,8 +63,6 @@ public class Bishop implements Piece {
 	}
 
 	public boolean move(int posCol, int posRow, Side[][] mine) {
-		int r = 0;
-		int c = 0;
 		if(moveTst(posCol,posRow,mine)){
 			row = posRow;
 			column = posCol;

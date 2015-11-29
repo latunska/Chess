@@ -10,8 +10,8 @@ public class Game {
 	//if king!=valid move game over
 	//board is an [8][8] grid of type Side
 
-	private static final long serialVersionUID = -1L;
-	private static Piece [][] board;
+//	private static final long serialVersionUID = -1L;
+	private Piece [][] board;
 	private Side[][] sides;
 	/**
 	 * @return the sides
@@ -83,12 +83,12 @@ public class Game {
 			mix=new FirstAI();
 
 //FOR PURPOSES OF TESTING PRINTS EACH ROW
-				test( board);
+//				test( board);
 		}
 /**
 	 * @return the board
 	 */
-	public static Piece[][] getBoard() {
+	public Piece[][] getBoard() {
 		return board;
 	}
 /**********************************************************************
@@ -102,7 +102,7 @@ public class Game {
 		sides=temp;
 //			turn=who;
 //FOR PURPOSES OF TESTING PRINTS EACH ROW
-		test( board);
+//		test( board);
 	}
 	
 	/**********************************************************************
@@ -128,6 +128,9 @@ public class Game {
 				sides[endCol][endRow]=board[endCol][endRow].getSide();
 				advTurn();
 				return true;
+			}
+			else if(board[startCol][startRow] ==null){
+				
 			}
 		}
 		
@@ -184,31 +187,45 @@ public class Game {
 			return board[col][row];
 	}
 	/**********************************************************************
+	 * Checks for a winning state and then ends the game if found
 	 **********************************************************************/
 	public boolean checkWin(){
 		boolean win = true;
 		//White just moved
 		if(turn !=Side.White){
-			for(int c=0;c<8&&win==true;c++){
-				for(int r=0;r<8&&win==true;r++){
-					if(board[c][r]!=null && board[c][r].getValue()==10 && board[c][r].getSide()==Side.Black){
-						win=false;
+			for(int c=0;c<8 && win==true;c++){
+				for(int r=0;r<8 && win==true;r++){
+					if(board[c][r]!=null){
+						if( board[c][r].getValue()==10 && board[c][r].getSide()==Side.Black)
+							return false;
 					}
 				}
 			}
+			turn =Side.White;
 		}
 		//Black just moved
-		if(turn !=Side.Black){
+		else if(turn !=Side.Black){
 			for(int c=0;c<8&&win==true;c++){
 				for(int r=0;r<8&&win==true;r++){
-					if(board[c][r].getValue()==10 && board[c][r].getSide()==Side.White){
-						win=false;
+					if(board[c][r]!=null){
+						if(board[c][r].getValue()==10 && board[c][r].getSide()==Side.White){
+							return false;
+						}
 					}
 				}
 			}
+			turn =Side.Black;
 		}
-
-		return win;
+		//ends the game as "empty" will never have a turn.
+		//turn=Side.Empty;
+		return true;
+	}
+	
+	/**
+	 * @return the turn
+	 */
+	public Side getTurn() {
+		return turn;
 	}
 	/**********************************************************************
 	 * System testing
@@ -219,29 +236,66 @@ public class Game {
 		int row=3;
 		test=new Game();
 		test.movePiece(1, 7, 2, 5);		//white
-		test.movePiece(0, 1, col, row);	//Black
-		test.movePiece(1, 6, 1, 5);		//White
-		test.movePiece(0, 3, 0, 4);		//Black
-		test.movePiece(2, 5, 0, 4);		//White
-		test.movePiece(0, 0, 0, 4);		//Black
-		test.movePiece(0, 6, 0, 5);		//White
-		test.movePiece(0, 4, 7, 4);		//Black
-		test.movePiece(0, 5, 0, 4);		//White
-		test.movePiece(7, 4, 0, 4);		//Black
-		test.movePiece(0, 7, 0, 4);		//White
-		test.movePiece(1, 0, 2, 2);		//Black
-		test.movePiece(0, 4, 0, 0);		//White
-		test.movePiece(3, 1, 3, 3);		//Black
-		test.movePiece(0, 0, 1, 0);		//White
-		test.movePiece(3, 0, 3, 1);		//Black
-		test.movePiece(1, 0, 2, 0);		//White
-		test.movePiece(3, 1, 7, 5);		//Black
-		test.movePiece(2, 0, 4, 0);		//White
 		if(test.checkWin())
 			System.out.println("Game");
-		test.movePiece(7, 5, 3, 1);		//Black
+		test.movePiece(0, 1, col, row);	//Black
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(1, 6, 1, 5);		//White
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(0, 3, 0, 4);		//Black
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(2, 5, 0, 4);		//White
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(0, 0, 0, 4);		//Black
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(0, 6, 0, 5);		//White
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(0, 4, 7, 4);		//Black
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(0, 5, 0, 4);		//White
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(7, 4, 0, 4);		//Black
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(0, 7, 0, 4);		//White
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(1, 0, 2, 2);		//Black
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(0, 4, 0, 0);		//White
+		if(test.checkWin())
+			System.out.println("Game");
+		test.movePiece(3, 1, 3, 3);		//Black
+		if(test.checkWin())
+			System.out.println("Game5");
+		test.movePiece(0, 0, 1, 0);		//White
+		if(test.checkWin())
+			System.out.println("Game4");
+		test.movePiece(3, 0, 3, 1);		//Black
+		if(test.checkWin())
+			System.out.println("Game3");
+		test.movePiece(1, 0, 2, 0);		//White
+		if(test.checkWin())
+			System.out.println("Game2");
+		test.movePiece(3, 1, 7, 5);		//Black
+		if(test.checkWin())
+			System.out.println("Game1");
+		test.movePiece(2, 0, 4, 0);		//White
+		//test(board);
+		if(test.checkWin())
+			System.out.println("Game6");
+		test.movePiece(1, 1, 1, 2);		//Black
 		System.out.println();
-		test(board);
+		//test(board);
 		return ;
 	}
 
