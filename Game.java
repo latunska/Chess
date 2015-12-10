@@ -120,7 +120,16 @@ public class Game {
 			return false;
 		}
 		if(turn==board[startCol][startRow].getSide()){
-		//gets a specific piece then asks if it can move to a specified square
+		//checks for castling by moving king.
+			if(board[startCol][startRow].getValue()==10){
+				if (board[startCol][startRow].isMoved() && board[startCol][startRow].getSide()==Side.White){
+					
+				}
+				if (board[startCol][startRow].isMoved() && board[startCol][startRow].getSide()==Side.Black){
+					
+				}
+			}
+		//gets a specific piece then asks if it can move to a specified square	
 			if(board[startCol][startRow].move(endCol, endRow, sides)){
 				board[endCol][endRow]=board[startCol][startRow];
 				board[startCol][startRow]=null;

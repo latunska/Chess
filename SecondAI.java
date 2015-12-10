@@ -11,5 +11,8 @@ public class SecondAI implements AI {
 		
 		return null;
 	}
+	private void evaluate(){
+		
+	}
 
 }

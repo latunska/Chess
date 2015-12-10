@@ -21,13 +21,15 @@ public class Rook implements Piece{
 	private int column;
 	private int value;
 	private BufferedImage img;
+	boolean moved;
 	
-	/*
+	/**
 	 * Constructor sets side, localized board position Unique Identity
 	 * 
 	 */
 	Rook(Side side, int col, int row) {
 		this.side = side;
+		moved=false;
 		this.row = row;
 		this.column = col;
 		this.value = 5;
@@ -47,7 +49,9 @@ public class Rook implements Piece{
 		}
 
 	}
-
+	/**
+	 * Checks if there is any obstructions
+	 */
 	private boolean attack( Side mine) {
 		if ( side != mine) {
 			return true;
@@ -55,7 +59,9 @@ public class Rook implements Piece{
 			return false;
 
 	}
-
+	/*
+	 * @see ChessGame.Piece#move(int, int, ChessGame.Side[][])
+	 */
 	public boolean move(int posCol, int posRow,  Side[][] mine) {
 
 		if(moveTst(posCol,posRow,mine)){
@@ -93,19 +99,28 @@ public class Rook implements Piece{
 	public int getValue() {
 		return value;
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see ChessGame.Piece#draw(java.awt.Graphics)
+	 */
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(img, column*62, row*62, null);
 		
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see ChessGame.Piece#getImg()
+	 */
 	@Override
 	public BufferedImage getImg() {
 		// TODO Auto-generated method stub
 		return img;
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see ChessGame.Piece#moveTst(int, int, ChessGame.Side[][])
+	 */
 	@Override
 	public boolean moveTst(int posCol, int posRow, Side[][] mine) {
 		int r;
@@ -165,6 +180,12 @@ public class Rook implements Piece{
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean isMoved() {
+		// TODO Auto-generated method stub
+		return moved;
 	}
 }
 

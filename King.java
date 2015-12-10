@@ -47,6 +47,13 @@ public class King implements Piece{
 		}
 	}
 
+	/**
+	 * @return the moved
+	 */
+	public boolean isMoved() {
+		return moved;
+	}
+
 	private boolean attack(Side mine) {
 		if (side != mine) {
 			return true;
@@ -111,11 +118,14 @@ public class King implements Piece{
 	public boolean moveTst(int posCol, int posRow, Side[][] mine) {
 		// 		if (attack( mine[posCol][posRow])){
 		if((posRow - row)<= 1 && (posRow - row)>= -1 && (column-posCol) <= 1 && (column-posCol) >= -1 && attack(mine[posCol][posRow])) {
-
+			
 			return true;
-		}
-		else if (!moved && posRow==row && ((posCol-column)==2 ||(posCol-column)==-3)&& attack(mine[posCol][posRow])&& attack(mine[posCol-1][posRow])){
-			return true;
+//		}
+//		else if (!moved 
+//				&& ((posCol-column)==2 && attack(mine[posCol][posRow])&& attack(mine[posCol-1][posRow]))
+//				||(((column-posCol)==2)&& attack(mine[posCol][posRow])&& attack(mine[posCol+1][posRow]))){
+//			
+//			return true;
 		}
 		return false;
 	}

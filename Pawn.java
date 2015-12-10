@@ -129,4 +129,10 @@ public class Pawn implements Piece{
 		}
 		return false;
 	}
+
+	@Override
+	public boolean isMoved() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
